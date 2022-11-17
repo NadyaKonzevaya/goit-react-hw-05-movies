@@ -11,6 +11,10 @@ export const StyledLink = styled(NavLink)`
   &.active {
     color: red;
   }
+  &:hover,
+  :focus {
+    text-decoration: underline;
+  }
 `;
 
 export const Nav = styled.nav`

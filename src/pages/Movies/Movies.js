@@ -1,6 +1,7 @@
-import { useSearchParams, NavLink, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import API from 'services/api';
+import MovieList from 'components/MovieList/index';
 import {
   StyledForm,
   StyledInput,
@@ -11,39 +12,41 @@ import {
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
-  const movieTitle = searchParams.get('title') ?? '';
+  const query = searchParams.get('query') ?? '';
 
   const filteredMovies = movies.filter(movie =>
-    movie.title.toLowerCase().includes(movieTitle.toLowerCase())
+    movie.title.toLowerCase().includes(query.toLowerCase())
   );
 
-  console.log(movies);
+  useEffect(() => {
+    query && API.fetchAllMovies(query).then(setMovies);
+  }, [query]);
+
+  const updateQueryString = query => {
+    const nextParams = query !== '' ? { query } : {};
+    setSearchParams(nextParams);
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
-    API.fetchAllMovies(movieTitle).then(setMovies);
+
     e.target.reset();
   };
+
+  console.log(movies);
+
   return (
     <>
       <StyledForm onSubmit={handleSubmit}>
         <StyledInput
           type="text"
-          value={searchParams.get('title')}
-          onChange={e => setSearchParams({ title: e.target.value })}
+          value={query}
+          onChange={e => updateQueryString(e.target.value)}
         />
         <StyledButton type="submit">Search</StyledButton>
       </StyledForm>
       <ul>
-        {{ searchParams } &&
-          иfilteredMovies.map(({ id, title }) => (
-            <li key={id}>
-              <NavLink to={`${id}`} state={{ from: location }}>
-                {title}
-              </NavLink>
-            </li>
-          ))}
+        <MovieList movies={filteredMovies} />
       </ul>
     </>
   );

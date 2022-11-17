@@ -1,4 +1,17 @@
 import styled from 'styled-components';
+import { BsArrowLeft } from 'react-icons/bs';
+import { NavLink } from 'react-router-dom';
+
+export const StyledLink = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+`;
+
+export const StyledBsArrowLeft = styled(BsArrowLeft)`
+  vertical-align: middle;
+  margin-right: 5px;
+  color: black;
+`;
 
 export const StyledDiv = styled.div`
   display: flex;

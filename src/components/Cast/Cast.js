@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+// import { GiBabyFace } from 'react-icons/gi';
 import API from 'services/api';
-import { StyledSpan } from './Cast.styles';
-
 import { StyledLi } from './Cast.styles';
+import defaultFace from 'images/defaultFace.png';
 
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
@@ -22,12 +22,16 @@ const Cast = () => {
     <ul>
       {cast.map(({ id, name, character, profile_path }) => (
         <StyledLi key={id}>
-          <img
-            alt="actor"
-            src={`${IMAGE_BASE_URL}${profile_path}`}
-            width="100"
-          />
-          <StyledSpan>{name}</StyledSpan>
+          {profile_path ? (
+            <img
+              alt="actor"
+              src={`${IMAGE_BASE_URL}${profile_path}`}
+              width="100"
+            />
+          ) : (
+            <img src={defaultFace} alt="vf;lkdfsmv" width="100" height="150" />
+          )}
+          <span>{name}</span>
           <span>Character: {character}</span>
         </StyledLi>
       ))}

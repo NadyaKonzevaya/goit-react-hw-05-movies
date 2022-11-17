@@ -6,7 +6,3 @@ export const StyledLi = styled.li`
   gap: 10px;
   margin-bottom: 10px;
 `;
-
-export const StyledSpan = styled.span`
-  list-style: circle;
-`;

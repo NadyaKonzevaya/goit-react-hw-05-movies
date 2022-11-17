@@ -1,5 +1,12 @@
-import { useParams, Outlet, NavLink, useLocation } from 'react-router-dom';
+import {
+  useParams,
+  Outlet,
+  useLocation,
+  NavLink,
+  useNavigate,
+} from 'react-router-dom';
 import { useState, useEffect } from 'react';
+// import { BsArrowLeft } from 'react-icons/bs';
 import API from 'services/api';
 import {
   StyledDiv,
@@ -7,6 +14,8 @@ import {
   StyledUl,
   StyledLi,
   StyledAddInfoDiv,
+  StyledLink,
+  StyledBsArrowLeft,
 } from './MovieDetails.styled';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
@@ -15,7 +24,9 @@ const MovieDetails = () => {
   console.log(movieId);
   const [movie, setMovie] = useState(null);
   const location = useLocation();
+  // const navigate = useNavigate();
   const backLinkHref = location.state?.from ?? '/';
+  console.log(location.state.from);
 
   useEffect(() => {
     API.fetchMovieInfo(movieId).then(setMovie);
@@ -27,13 +38,20 @@ const MovieDetails = () => {
     return null;
   }
 
+  // const onGoBack = () => {
+  //   navigate(backLinkHref);
+  // };
+
   const { title, release_date, vote_average, overview, genres, poster_path } =
     movie;
 
   return (
     <>
       <button type="button">
-        <NavLink to={backLinkHref}>Go back</NavLink>
+        <StyledLink to={backLinkHref}>
+          <StyledBsArrowLeft />
+          Go back
+        </StyledLink>
       </button>
       <StyledDiv>
         <img
