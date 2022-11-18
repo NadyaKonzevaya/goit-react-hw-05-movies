@@ -1,6 +1,7 @@
 import API from 'services/api';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -24,6 +25,15 @@ const Home = () => {
       </ul>
     </>
   );
+};
+
+Home.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+    })
+  ),
 };
 
 export default Home;

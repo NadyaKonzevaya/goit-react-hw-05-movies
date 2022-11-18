@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import API from 'services/api';
 import MovieList from 'components/MovieList/index';
+import PropTypes from 'prop-types';
 import {
   StyledForm,
   StyledInput,
@@ -50,6 +51,11 @@ const Movies = () => {
       </ul>
     </>
   );
+};
+
+Movies.propTypes = {
+  movies: PropTypes.arrayOf(PropTypes.shape),
+  query: PropTypes.string,
 };
 
 export default Movies;

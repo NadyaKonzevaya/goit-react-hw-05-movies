@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-// import { GiBabyFace } from 'react-icons/gi';
+import PropTypes from 'prop-types';
 import API from 'services/api';
 import { StyledLi } from './Cast.styles';
 import defaultFace from 'images/defaultFace.png';
@@ -39,4 +39,15 @@ const Cast = () => {
   );
 };
 
+Cast.propTypes = {
+  movieId: PropTypes.string,
+  cast: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      character: PropTypes.string,
+      profile_path: PropTypes.string,
+    })
+  ),
+};
 export default Cast;

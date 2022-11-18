@@ -1,13 +1,7 @@
-import {
-  useParams,
-  Outlet,
-  useLocation,
-  NavLink,
-  useNavigate,
-} from 'react-router-dom';
+import { useParams, Outlet, useLocation, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-// import { BsArrowLeft } from 'react-icons/bs';
 import API from 'services/api';
+import PropTypes from 'prop-types';
 import {
   StyledDiv,
   StyledInfoDiv,
@@ -21,18 +15,15 @@ const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-  console.log(movieId);
   const [movie, setMovie] = useState(null);
   const location = useLocation();
   // const navigate = useNavigate();
   const backLinkHref = location.state?.from ?? '/';
-  console.log(location.state.from);
+  // console.log(location.state.from);
 
   useEffect(() => {
     API.fetchMovieInfo(movieId).then(setMovie);
   }, [movieId]);
-
-  console.log(movie);
 
   if (!movie) {
     return null;
@@ -54,12 +45,7 @@ const MovieDetails = () => {
         </StyledLink>
       </button>
       <StyledDiv>
-        <img
-          alt="poster"
-          src={`${IMAGE_BASE_URL}${poster_path}`}
-          width="300"
-          //   height="300"
-        />
+        <img alt="poster" src={`${IMAGE_BASE_URL}${poster_path}`} width="300" />
         <StyledInfoDiv>
           <h1>
             {title}({Number.parseInt(release_date)})
@@ -89,6 +75,21 @@ const MovieDetails = () => {
       <Outlet />
     </>
   );
+};
+
+MovieDetails.propTypes = {
+  movieId: PropTypes.string,
+  movie: PropTypes.shape({
+    title: PropTypes.number,
+    release_date: PropTypes.string,
+    vote_average: PropTypes.number,
+    overview: PropTypes.string,
+    genres: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    }),
+    poster_path: PropTypes.string,
+  }),
 };
 
 export default MovieDetails;

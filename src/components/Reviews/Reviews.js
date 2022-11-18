@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import API from 'services/api';
+import PropTypes from 'prop-types';
 
 const Reviews = () => {
   const { movieId } = useParams();
@@ -10,8 +11,6 @@ const Reviews = () => {
   useEffect(() => {
     API.fetchMovieReviews(movieId).then(setReviews);
   }, [movieId]);
-
-  console.log(reviews);
 
   if (!reviews) {
     return;
@@ -31,6 +30,17 @@ const Reviews = () => {
       )}
     </ul>
   );
+};
+
+Reviews.propTypes = {
+  movieId: PropTypes.string,
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      author: PropTypes.string,
+      content: PropTypes.string,
+    })
+  ),
 };
 
 export default Reviews;
