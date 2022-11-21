@@ -1,5 +1,5 @@
 import { useParams, Outlet, useLocation, NavLink } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import API from 'services/api';
 import PropTypes from 'prop-types';
 import {
@@ -72,7 +72,9 @@ const MovieDetails = () => {
           </li>
         </ul>
       </StyledAddInfoDiv>
-      <Outlet />
+      <Suspense fallback={<div>Loading subpage...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

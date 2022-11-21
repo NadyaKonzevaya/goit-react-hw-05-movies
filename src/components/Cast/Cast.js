@@ -29,7 +29,7 @@ const Cast = () => {
               width="100"
             />
           ) : (
-            <img src={defaultFace} alt="vf;lkdfsmv" width="100" height="150" />
+            <img src={defaultFace} alt="defaultFace" width="100" height="150" />
           )}
           <span>{name}</span>
           <span>Character: {character}</span>
